@@ -16,25 +16,6 @@ Be sure that the `docker engine` & `docker-compose` are installed.
 
 ---
 
-## Config the `keycloak` server
-- import the project config
-- add the test user for SSO
-- add the password to the test user
-
-Tutorial on youtube: <https://youtu.be/G4IQlV65Sl0>
-
-<a href="https://youtu.be/G4IQlV65Sl0">
-  <img src="img/1.png" width=400/>
-</a>
-
-## Demostrate the web apps with `sso`
-
-Tutorial on youtube : <https://youtu.be/M2pz9RoE9zA>
-
-<a href="https://youtu.be/M2pz9RoE9zA">
-  <img src="img/2.png" width=400/>
-</a>
-
 
 ## Start and clean up
 start the container instanc
@@ -68,9 +49,3 @@ user: admin
 password: admin
 ```
 
-### Screenshots
-<img src="img/screen1.png" style="border: 1px solid grey; padding: 4px;" width=800/>
-<img src="img/screen2.png" style="border: 1px solid grey; padding: 4px;" width=800/>
-<img src="img/screen3.png" style="border: 1px solid grey; padding: 4px;" width=800/>
-<img src="img/screen4.png" style="border: 1px solid grey; padding: 4px;" width=800/>
-<img src="img/screen5.png" style="border: 1px solid grey; padding: 4px;" width=800/>
