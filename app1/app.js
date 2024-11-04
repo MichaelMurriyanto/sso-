@@ -8,6 +8,6 @@ let keycloakConfig = {
     },
     "confidential-port": 0,
     "enable-cors": true,
-    "clientId": "web-app1"
+    "clientid": "web-app1"
 };
 window.keycloak = new Keycloak(keycloakConfig);

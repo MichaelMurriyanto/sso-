@@ -4,7 +4,7 @@
   "ssl-required": "external",
   "resource": "web-app1",
   "credentials": {
-    "secret": "21b21c80-afd3-4d0b-9454-c13e631e8a02"
+    "secret": "90d014fa-89bf-45b5-ab87-bcd8a9028c7f"
   },
   "confidential-port": 0,
   "enable-cors": true,

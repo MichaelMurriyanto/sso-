@@ -7,13 +7,10 @@ This `SSO Demo` uses four container instances:
 - app1: simple php web app
 - app2: simple php web app
 
-
 ## Pre Install
 Be sure that the `docker engine` & `docker-compose` are installed.
-
 - Install docker engine: https://docs.docker.com/engine/installation/
 - Install docker-compose: https://docs.docker.com/compose/install/
-
 ---
 
 
@@ -49,3 +46,19 @@ user: admin
 password: admin
 ```
 
+### DB akses
+```
+Via CLI
+
+docker ps -a
+docker exec -it <nama_container_db> mysql -u keycloak -p
+masukan password
+
+perintah sql
+SHOW DATABASES;
+USE keycloak;
+SHOW TABLES;
+SELECT * FROM <nama_tabel>;
+DESCRIBE <nama_tabel>;
+EXIT;
+```

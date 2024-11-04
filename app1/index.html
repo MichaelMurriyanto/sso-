@@ -2,53 +2,73 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Menyertakan library Zepto.js dari CDN untuk manipulasi DOM, seperti jQuery tetapi lebih ringan -->
     <script src="http://zeptojs.com/zepto.min.js"></script>
+    <!-- Menyertakan library Keycloak.js untuk mengatur SSO Keycloak -->
     <script src="http://localhost:8080/js/keycloak.js"></script>
+    <!-- Menyertakan file JavaScript app.js untuk fungsi aplikasi tambahan -->
     <script src="http://localhost:8091/app.js"></script>
-    <title>web-app-1: Home</title>
+    <!-- Menyertakan stylesheet style.css untuk memberikan gaya pada halaman -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Kependudukan: Home</title>
   </head>
   <body>
-    <h1>Web App 1</h1>
+    <!-- Judul halaman yang tampil di bagian body -->
+    <h1>Kependudukan</h1>
+    <!-- Bagian navigasi dengan dua tautan: My Account (login) dan logout -->
     <nav role="navigation">
+      <!-- Elemen div untuk menampilkan status autentikasi Keycloak -->
       <div id="status"></div>
       <ul>
+        <!-- Link untuk login, diarahkan ke halaman akun pengguna setelah login -->
         <li>
-          <a title="login" id="login" href="http://localhost:8091/me.html"
-            >My Account</a
-          >
+          <a title="login" id="login" href="http://localhost:8091/me.html">My Account</a>
         </li>
+        <!-- Link untuk logout, diarahkan kembali ke halaman awal setelah logout -->
         <li>
           <a title="logout" id="logout" href="http://localhost:8091">logout</a>
         </li>
       </ul>
     </nav>
+
+    <!-- JavaScript untuk inisialisasi Keycloak dan pengaturan event login/logout -->
     <script>
       $(function () {
+        // Inisialisasi Keycloak dengan mode 'implicit' dan pengecekan status SSO saat halaman dimuat
         window.keycloak
           .init({
-            flow: 'implicit',
-            onLoad: 'check-sso',
+            flow: 'implicit', // Mengatur mode aliran autentikasi sebagai implicit
+            onLoad: 'check-sso', // Mengecek status SSO saat halaman dimuat
           })
           .then(function (authenticated) {
+            // Jika pengguna berhasil diautentikasi, tampilkan pesan "SSO Authenticated ✅"
             if (authenticated) {
               $('#status').html($('<pre>SSO Authenticated ✅</pre>'));
             } else {
+              // Jika pengguna belum terautentikasi, tampilkan pesan "SSO Not Authenticated 🔥"
               $('#status').html($('<pre>SSO Not Authenticated 🔥</pre>'));
             }
           })
           .catch(function () {
+            // Tampilkan pesan error jika inisialisasi Keycloak gagal
             console.log('failed to initialize');
           });
-        $('#login').on('click', function (e) {
-          e.preventDefault();
 
+        // Event listener untuk login
+        $('#login').on('click', function (e) {
+          e.preventDefault(); // Mencegah aksi default link
+
+          // Memicu metode login Keycloak, dengan redirect ke 'me.html' setelah berhasil
           window.keycloak.login({
             redirectUri: 'http://localhost:8091/me.html',
           });
         });
-        $('#logout').on('click', function (e) {
-          e.preventDefault();
 
+        // Event listener untuk logout
+        $('#logout').on('click', function (e) {
+          e.preventDefault(); // Mencegah aksi default link
+
+          // Memicu metode logout Keycloak, dengan redirect ke 'index.html' setelah logout
           window.keycloak.logout({
             redirectUri: 'http://localhost:8091/index.html',
           });

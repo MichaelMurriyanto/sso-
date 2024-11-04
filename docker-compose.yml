@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   db:
@@ -12,7 +12,7 @@ services:
           - 3306:3306
 
   keycloak:
-      image: quay.io/keycloak/keycloak:latest
+      image: quay.io/keycloak/keycloak:25.0.5
       environment:
           - KEYCLOAK_ADMIN=admin
           - KEYCLOAK_ADMIN_PASSWORD=admin
@@ -44,3 +44,15 @@ services:
           - 8092:80
       volumes:
           - ./app2:/var/www/html
+  app3:
+      image: php:7.1-apache
+      ports:
+          - 8093:80
+      volumes:
+          - ./app3:/var/www/html
+  app4:
+      image: php:7.1-apache
+      ports:
+          - 8094:80
+      volumes:
+          - ./app4:/var/www/html

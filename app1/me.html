@@ -2,32 +2,45 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>web-app-1: user profile</title>
+    <title>Kependudukan: user profile</title>
+    <!-- Menyertakan library Zepto.js dari CDN untuk manipulasi DOM -->
     <script src="http://zeptojs.com/zepto.min.js"></script>
+    <!-- Menyertakan library Keycloak.js untuk mengatur SSO Keycloak -->
     <script src="http://localhost:8080/js/keycloak.js"></script>
+    <!-- Menyertakan file JavaScript app.js untuk fungsi aplikasi tambahan -->
     <script src="http://localhost:8091/app.js"></script>
+    <!-- Menyertakan stylesheet me.css untuk mengatur gaya halaman -->
+    <link rel="stylesheet" href="me.css" />
   </head>
   <body>
-    <h2 id="page-title">web-app-1: User Info</h2>
+    <!-- Judul halaman yang tampil di bagian body -->
+    <h2 id="page-title">Kependudukan: User Info</h2>
+    <!-- Elemen div kosong yang akan diisi dengan informasi pengguna dari Keycloak -->
     <div id="main"></div>
+
     <script>
       $(function () {
+        // Inisialisasi Keycloak dengan flow 'implicit' dan cek status SSO saat halaman dimuat
         window.keycloak
           .init({
-            flow: 'implicit',
-            onLoad: 'check-sso',
+            flow: 'implicit', // Menggunakan aliran implicit
+            onLoad: 'check-sso', // Mengecek status SSO saat halaman dimuat
           })
           .then(function (authenticated) {
+            // Jika pengguna tidak diautentikasi, arahkan ke halaman logout dan kembali ke halaman index
             if (!authenticated) {
               window.keycloak.logout({
                 'redirectUri': 'http://localhost:8091/index.html'
               });
             }
+            // Jika pengguna terautentikasi, muat informasi pengguna dari Keycloak
             window.keycloak
               .loadUserInfo()
               .then((data) => {
+                // Menampilkan data pengguna di halaman dalam format JSON
                 $('#main').after(
                   $('<pre>' + JSON.stringify(data, null, '\t') + '</pre>'),
+                  // Menambahkan tautan untuk kembali ke halaman utama
                   $('<a>', {
                     text: 'back to homepage',
                     href: 'http://localhost:8091',
@@ -35,10 +48,12 @@
                 );
               })
               .catch((error) => {
+                // Menangkap dan mencetak error jika terjadi masalah saat memuat info pengguna
                 console.log(error);
               });
           })
           .catch(function () {
+            // Mencetak pesan error jika inisialisasi Keycloak gagal
             console.log('failed to initialize');
           });
       });
